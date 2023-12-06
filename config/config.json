@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "gt99",
+    "password": "Password123*",
+    "database": "total99",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "gt99",
+    "password": "Password123*",
+    "database": "total99",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "gt99",
+    "password": "Password123*",
+    "database": "total99",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

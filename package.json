@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.33.0",
+    "tedious": "^16.4.1",
+    "xml2js": "^0.6.2"
+  },
+  "scripts": {
+    "build": "esbuild server.js --bundle --minify --format=esm --outfile=vendor.js",
+    "dev": "yarn start server.js",
+    "production": "NODE_ENV=production yarn start server.js",
+    "model:generate": "npx sequelize-cli model:generate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:rollback": "npx sequelize-cli db:migrate:undo",
+    "migrate:rollback:all": "npx sequelize-cli db:migrate:undo:all"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.1"
+  }
+}
