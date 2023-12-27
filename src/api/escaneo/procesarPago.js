@@ -200,7 +200,6 @@ module.exports = async function handler(req, res) {
                             })
                         }
                     }).catch((error) => {
-                        console.log(error);
                         return res.status(500).json({
                             error: true,
                             text: error.message,
@@ -226,8 +225,11 @@ module.exports = async function handler(req, res) {
                     })
                 }
             }).catch((error) => {
-                console.log(error);
-                throw error;
+                console.log("Es aca papi", error);
+                return res.status(500).json({
+                    status: false,
+                    text: 'Error procesando el pago con la pasaerla'
+                });
             })
 
         } else { // Procesamos el pago
@@ -345,7 +347,8 @@ module.exports = async function handler(req, res) {
                 })
                 
             }).catch((error) => {
-                throw error;
+                console.log("Error preregistro", error)
+                return res.status(500).json(error?.error || error);
             })
         }
 

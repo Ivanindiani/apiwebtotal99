@@ -79,6 +79,7 @@ function requestsMegasoft(endpoint, params, method, datos = {}, timeout=defaultT
                     const jsonFinal = await parseStringPromise(data, {explicitArray: false});
                     resolve({status, data: jsonFinal.response, headers: resHeaders});
                 } else {
+                    console.log("Es aqui")
                     reject({status, error: data, headers: resHeaders});
                 }
             })
@@ -113,14 +114,14 @@ function preRegistro() {
         .then((result) => {
             const nControl = result.data.control;
     
-            if(result.data.codigo !== '00') throw result.data.descripcion;
+            if(result.data.codigo !== '00') return reject(result.data.descripcion);
     
             console.log(result);
             console.log("Consultando QueryStatus nControl: "+nControl);
 
             resolve(nControl)
         }).catch((error) => {
-            console.log(error);
+            console.log("En funcion", error);
             reject(error)
         })
     });

@@ -9,18 +9,19 @@ const path = require('path');
 const { authorization } = require('./src/api/validations/_middleware.js');
 
 // Custom calls redis server
-//const { createClient } = require("redis");
+const { createClient } = require("redis");
 
 const endpointsTiendas = [
     '/tiendas/carrito',
     '/tiendas/categorias',
     '/tiendas/escanear',
-	'/tiendas/procesar_pago'
+	'/tiendas/procesar_pago',
+	'/tiendas/articulos_carrito'
 ]
 
 async function initRoutes() {
-	//const redisConection = await createClient(config[config.NODE_ENV].REDIS);
-	//await redisConection.connect();
+	const redisConection = await createClient(config[config.NODE_ENV].REDIS);
+	await redisConection.connect();
 
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
@@ -29,8 +30,8 @@ async function initRoutes() {
 	// middleware that is specific to this router
 	app.use((req, res, next) => {
 		authorization(req, res, (result, msg) => {
-			//req["redis"] = redisConection;
-			//req["redisKey"] = redisKey;
+			req["redis"] = redisConection;
+			req["redisKey"] = redisKey;
 			if(result)
 				return next();
 			
@@ -123,7 +124,7 @@ app.listen(port, () => {
 
 initRoutes();
 
-/*const redisKey = (key) => {
+const redisKey = (key) => {
     return config[config.NODE_ENV].defaultRedisKey+"_"+key;
-}*/
+}
 

@@ -54,7 +54,7 @@ const validParams = (params = {}, paramsRequired = []) => {
     return { error: false };
 }
 
-/*async function userAuthorized(req, res){
+async function userAuthorized(req, res){
     let token = req.headers.authorization;
     
     //console.log(req.headers);
@@ -99,7 +99,7 @@ const validParams = (params = {}, paramsRequired = []) => {
             scopes: result.scopes
         }
 	}
-}*/
+}
 
 
-module.exports = { validMethod, validParams, authorization };
+module.exports = { validMethod, validParams, authorization, userAuthorized };
