@@ -51,19 +51,19 @@ module.exports = async function handler(req, res) {
                     text: 'Este usuario ya está registrado por favor intenta iniciar sesión'
                 });
             }
-            let diffTime = (new Date().getTime()-(new Date(ggUser.actualizado).getTime()))/1000/3600;
+            let diffTime = (new Date().getTime()-(new Date(ggUser.actualizado).getTime()))/1000/60;
 
             if(dataReq.type === 'registro') {
-                if(diffTime > config[config.NODE_ENV].timeCodeAuth) {
-                    return res.status(400).json({
-                        error: true,
-                        text: 'El código de verificación de correo está vencido por favor solicite otro'
-                    });
-                }
                 if(dataReq.code !== ggUser.codigo) {
                     return res.status(400).json({
                         error: true,
                         text: 'El código de verificación de correo es inválido'
+                    });
+                }
+                if(diffTime > config[config.NODE_ENV].timeCodeAuth) {
+                    return res.status(400).json({
+                        error: true,
+                        text: 'El código de verificación de correo está vencido por favor solicite otro'
                     });
                 }
 
@@ -174,7 +174,7 @@ module.exports = async function handler(req, res) {
         });
 
 
-        if(!dUser?.id) { // Creamos el usuario
+        if(!dUser?.id) { // Invalid login
             return res.status(404).json({
                 error: true,
                 text: 'Datos ínvalidos!'
